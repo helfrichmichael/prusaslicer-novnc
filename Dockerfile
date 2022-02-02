@@ -57,18 +57,20 @@ RUN apt-get update && apt-get install -y \
   && apt-get purge -y --auto-remove jq unzip bzip2 \
   && apt-get autoclean \
   && groupadd slic3r \
-  && useradd -g slic3r --create-home --home-dir /slic3r slic3r \
+  && useradd -g slic3r --create-home --home-dir /home/slic3r slic3r \
   && mkdir -p /slic3r \
-  && chown -R slic3r:slic3r /slic3r /slic3r \
+  && mkdir -p /configs \
+  && chown -R slic3r:slic3r /slic3r /home/slic3r /configs/ \
   && locale-gen en_US \
-  && mkdir /root/.local
+  && mkdir /configs/.local \
+  && ln -s /configs/.config/ /home/slic3r/
 
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY menu.xml /etc/xdg/openbox/
 COPY supervisord.conf /etc/
 EXPOSE 8080
 
-VOLUME /root/
+VOLUME /configs/
 
-# It's time! Let's get to work! We use /root/ as a bindable volume for this Docker.
-CMD ["sh", "-c", "chown slic3r:slic3r /root /dev/stdout && exec gosu slic3r supervisord"]
+# It's time! Let's get to work! We use /configs/ as a bindable volume for Prusaslicers configurations.
+CMD ["sh", "-c", "chown -R slic3r:slic3r /configs/ /dev/stdout && exec gosu slic3r supervisord"]
