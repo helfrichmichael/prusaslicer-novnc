@@ -63,6 +63,7 @@ RUN apt-get update && apt-get install -y \
   && chown -R slic3r:slic3r /slic3r /home/slic3r /configs/ \
   && locale-gen en_US \
   && mkdir /configs/.local \
+  && mkdir -p /configs/.config/ \
   && ln -s /configs/.config/ /home/slic3r/
 
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
