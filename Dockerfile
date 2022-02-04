@@ -35,7 +35,7 @@ ENV LC_ALL en_US.UTF-8
 # Many of the commands below were derived and pulled from previous work by dmagyar on GitHub.
 # Here's their Dockerfile for reference https://github.com/dmagyar/prusaslicer-vnc-docker/blob/main/Dockerfile.amd64
 WORKDIR /slic3r
-ADD get_latest_prusa_slicer_release.sh /slic3r
+ADD get_latest_prusaslicer_release.sh /slic3r
 
 RUN apt-get update && apt-get install -y \
   jq \
@@ -45,9 +45,9 @@ RUN apt-get update && apt-get install -y \
   bzip2 \
   git \
   --no-install-recommends \
-  && chmod +x /slic3r/get_latest_prusa_slicer_release.sh \
-  && latestSlic3r=$(/slic3r/get_latest_prusa_slicer_release.sh url) \
-  && slic3rReleaseName=$(/slic3r/get_latest_prusa_slicer_release.sh name) \
+  && chmod +x /slic3r/get_latest_prusaslicer_release.sh \
+  && latestSlic3r=$(/slic3r/get_latest_prusaslicer_release.sh url) \
+  && slic3rReleaseName=$(/slic3r/get_latest_prusaslicer_release.sh name) \
   && curl -sSL ${latestSlic3r} > ${slic3rReleaseName} \
   && rm -f /slic3r/releaseInfo.json \
   && mkdir -p /slic3r/slic3r-dist \
