@@ -74,4 +74,4 @@ EXPOSE 8080
 VOLUME /configs/
 
 # It's time! Let's get to work! We use /configs/ as a bindable volume for Prusaslicers configurations.
-CMD ["sh", "-c", "chown -R slic3r:slic3r /configs/ /dev/stdout && exec gosu slic3r supervisord"]
+CMD ["bash", "-c", "chown -R slic3r:slic3r /configs/ /dev/stdout && exec gosu slic3r supervisord"]
