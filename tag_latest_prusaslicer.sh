@@ -1,5 +1,4 @@
 #!/bin/bash
-# tagLatestPrusaSlicer.sh
 # Push a tag for our repository if upstream PrusaSlicer generates a new release
 # This was forked from https://github.com/dmagyar/prusaslicer-vnc-docker/blob/main/tagLatestPrusaSlicer.sh
 

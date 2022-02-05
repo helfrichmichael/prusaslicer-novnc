@@ -19,7 +19,7 @@ RUN apt-get update -y && \
 
 RUN apt update && apt install -y --no-install-recommends --allow-unauthenticated \
         lxde gtk2-engines-murrine gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine arc-theme \
-        freeglut3 libgtk2.0-dev libwxgtk3.0-gtk3-dev libwx-perl libxmu-dev libgl1-mesa-glx libgl1-mesa-dri xdg-utils locales \
+        freeglut3 libgtk2.0-dev libwxgtk3.0-gtk3-dev libwx-perl libxmu-dev libgl1-mesa-glx libgl1-mesa-dri xdg-utils locales pcmanfm \
     && apt autoclean -y \
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*
@@ -40,9 +40,6 @@ ADD get_latest_prusaslicer_release.sh /slic3r
 RUN apt-get update && apt-get install -y \
   jq \
   curl \
-  ca-certificates \
-  unzip \
-  bzip2 \
   git \
   --no-install-recommends \
   && chmod +x /slic3r/get_latest_prusaslicer_release.sh \
@@ -54,7 +51,6 @@ RUN apt-get update && apt-get install -y \
   && tar -xjf ${slic3rReleaseName} -C /slic3r/slic3r-dist --strip-components 1 \
   && rm -f /slic3r/${slic3rReleaseName} \
   && rm -rf /var/lib/apt/lists/* \
-  && apt-get purge -y --auto-remove jq unzip bzip2 \
   && apt-get autoclean \
   && groupadd slic3r \
   && useradd -g slic3r --create-home --home-dir /home/slic3r slic3r \

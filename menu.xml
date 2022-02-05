@@ -11,6 +11,11 @@
                 <execute>/usr/bin/x-terminal-emulator</execute>
             </action>
         </item>
+        <item label="File Explorer">
+            <action name="Execute">
+                <execute>/usr/bin/pcmanfm</execute>
+            </action>
+        </item>
         <item label="Htop">
             <action name="Execute">
                 <execute>/usr/bin/x-terminal-emulator -e htop</execute>
