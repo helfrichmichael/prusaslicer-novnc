@@ -1,0 +1,18 @@
+name: tag
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # Every night at Midnight.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: sergeysova/jq-action@v2 # Needed for parsing the JSON of the Prusaslicer releases.
+      - name: checkout repo content
+        uses: actions/checkout@v2 # Checkout the repository content to GitHub's runner.
+      - name: Tag the latest Prusaslicer if available
+        run: |
+          chmod +x ./tag_latest_prusaslicer.sh
+          ./tag_latest_prusaslicer.sh
