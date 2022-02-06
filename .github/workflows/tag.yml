@@ -1,4 +1,4 @@
-name: tag
+name: Tag latest
 
 on:
   schedule:
