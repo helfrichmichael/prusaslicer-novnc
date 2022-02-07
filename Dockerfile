@@ -24,7 +24,7 @@ RUN apt update && apt install -y --no-install-recommends --allow-unauthenticated
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
-# Set the locale to US English UTF-8, as this is required for Superslicer to work. We also provide all locales to support all languages.
+# Set the locale to US English UTF-8, as this is required for Prusaslicer to work. We also provide all locales to support all languages.
 RUN apt-get update
 RUN apt-get install -y locales locales-all
 ENV LC_ALL en_US.UTF-8
