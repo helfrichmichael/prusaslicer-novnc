@@ -13,8 +13,8 @@ jobs:
       - name: checkout repo content
         uses: actions/checkout@v2 # Checkout the repository content to GitHub's runner.
       - name: Tag the latest Prusaslicer if available
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           chmod +x ./tag_latest_prusaslicer.sh
           ./tag_latest_prusaslicer.sh
