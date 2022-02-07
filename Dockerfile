@@ -24,12 +24,12 @@ RUN apt update && apt install -y --no-install-recommends --allow-unauthenticated
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
-# Set the locale as this is required for Prusaslicer to work.
-RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
-    locale-gen
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
+# Set the locale to US English UTF-8, as this is required for Superslicer to work. We also provide all locales to support all languages.
+RUN apt-get update
+RUN apt-get install -y locales locales-all
 ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
 
 # Install Prusaslicer and its dependencies.
 # Many of the commands below were derived and pulled from previous work by dmagyar on GitHub.
