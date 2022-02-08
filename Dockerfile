@@ -12,37 +12,26 @@ RUN apt-get update -y && \
     rm -rf /var/lib/apt/lists && \
     mkdir -p /usr/share/desktop-directories
 
-# Get all of the remaining dependencies for the OS and VNC.
+# Get all of the remaining dependencies for the OS, VNC, and Prusaslicer.
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends lxterminal nano wget openssh-client rsync ca-certificates xdg-utils htop tar xzip gzip bzip2 zip unzip && \
     rm -rf /var/lib/apt/lists
 
 RUN apt update && apt install -y --no-install-recommends --allow-unauthenticated \
         lxde gtk2-engines-murrine gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine arc-theme \
-        freeglut3 libgtk2.0-dev libwxgtk3.0-gtk3-dev libwx-perl libxmu-dev libgl1-mesa-glx libgl1-mesa-dri xdg-utils locales pcmanfm \
+        freeglut3 libgtk2.0-dev libwxgtk3.0-gtk3-dev libwx-perl libxmu-dev libgl1-mesa-glx libgl1-mesa-dri  \
+        xdg-utils locales locales-all pcmanfm jq curl git \
     && apt autoclean -y \
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
-# Set the locale to US English UTF-8, as this is required for Prusaslicer to work. We also provide all locales to support all languages.
-RUN apt-get update
-RUN apt-get install -y locales locales-all
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
-
-# Install Prusaslicer and its dependencies.
+# Install Prusaslicer
 # Many of the commands below were derived and pulled from previous work by dmagyar on GitHub.
 # Here's their Dockerfile for reference https://github.com/dmagyar/prusaslicer-vnc-docker/blob/main/Dockerfile.amd64
 WORKDIR /slic3r
 ADD get_latest_prusaslicer_release.sh /slic3r
 
-RUN apt-get update && apt-get install -y \
-  jq \
-  curl \
-  git \
-  --no-install-recommends \
-  && chmod +x /slic3r/get_latest_prusaslicer_release.sh \
+RUN chmod +x /slic3r/get_latest_prusaslicer_release.sh \
   && latestSlic3r=$(/slic3r/get_latest_prusaslicer_release.sh url) \
   && slic3rReleaseName=$(/slic3r/get_latest_prusaslicer_release.sh name) \
   && curl -sSL ${latestSlic3r} > ${slic3rReleaseName} \
