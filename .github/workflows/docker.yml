@@ -3,6 +3,7 @@ name: Publish to Docker
 on:
   schedule:
     - cron: '0 0 * * 5' # Every Friday at midnight we publish an image from latest to Docker Hub.
+  workflow_dispatch:
 
 jobs:
   push_to_registry:
