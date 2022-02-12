@@ -17,11 +17,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Get current date/time in the usual format to set the tags
-        run: echo "DATE_TIME=$(date + '%Y.%m.%d.%H%M%S')" >> $GITHUB_ENV
+      - name: Get current date/time in the usual format
+        id: date
+        run: echo "::set-output name=date::$(date + '%Y.%m.%d.%H%M%S')"
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
-          tags: mikeah/prusaslicer-novnc:latest, mikeah/prusaslicer-novnc:${{ env.DATE_TIME }}
+          tags: mikeah/prusaslicer-novnc:latest, mikeah/prusaslicer-novnc:${{ steps.date.outputs.date }}
