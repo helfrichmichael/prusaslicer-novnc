@@ -19,7 +19,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Get current date/time in the usual format
         id: date
-        run: echo "::set-output name=date::$(date + '%Y.%m.%d.%H%M%S')"
+        run: echo "::set-output name=date::$(date +'%Y.%m.%d.%H%M%S')"
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
