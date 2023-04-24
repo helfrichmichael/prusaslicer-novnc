@@ -11,7 +11,7 @@ set -eu
 GH_ACTION="y"
 
 # LATEST_RELEASE -- where to find the latest PrusaSlicer release
-LATEST_RELEASE="https://api.github.com/repos/prusa3d/PrusaSlicer/releases/latest"
+LATEST_RELEASE="https://api.github.com/repos/prusa3d/PrusaSlicer/releases?per_page=1&prerelease=true"
 
 # ** end of configurable variables **
 
