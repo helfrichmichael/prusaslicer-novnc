@@ -19,6 +19,10 @@ To run this image, you can run the following command: `docker run --detach --vol
 
 This will bind `/configs/` in the container to a local volume on my machine named `prusaslicer-novnc-data`. Additionally it will bind `/prints/` in the container to `superslicer-novnc-prints` locally on my machine, it will bind port `8080` to `8080`, and finally, it will provide an environment variable to keep Prusaslicer happy by providing an `SSL_CERT_FILE`.
 
+**Using a VNC Viewer**
+
+To use a VNC viewer with the container, the default port for X TigerVNC is 5900. You can add this port by adding `-p 5900:5900` to your command to start the container to open this port for access.
+
 ## Links
 
 [Prusaslicer](https://www.prusa3d.com/prusaslicer/)
@@ -28,3 +32,5 @@ This will bind `/configs/` in the container to a local volume on my machine name
 [GitHub Source](https://github.com/helfrichmichael/prusaslicer-novnc)
 
 [Docker](https://hub.docker.com/r/mikeah/prusaslicer-novnc)
+
+<a href="https://www.buymeacoffee.com/helfrichmichael" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
