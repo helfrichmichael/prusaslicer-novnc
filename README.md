@@ -23,6 +23,14 @@ This will bind `/configs/` in the container to a local volume on my machine name
 
 To use a VNC viewer with the container, the default port for X TigerVNC is 5900. You can add this port by adding `-p 5900:5900` to your command to start the container to open this port for access.
 
+
+**GPU Acceleration/Passthrough**
+
+Like other Docker containers, you can pass your Nvidia GPU into the container using the `NVIDIA_VISIBLE_DEVICES` and `NVIDIA_DRIVER_CAPABILITIES` envs. You can define these using the value of `all` or by providing more narrow and specific values. This has only been tested on Nvidia GPUs.
+
+In unraid you can set these values during set up. For containers outside of unraid, you can set this by adding the following params or similar  `-e NVIDIA_DRIVER_CAPABILITIES="all" NVIDIA_VISIBLE_DEVICES="all"`
+
+
 ## Links
 
 [Prusaslicer](https://www.prusa3d.com/prusaslicer/)
