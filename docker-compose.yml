@@ -1,0 +1,16 @@
+---
+version: "2.1"
+services:
+  prusaslicer-novnc:
+    image: mikeah/prusaslicer-novnc
+    container_name: prusaslicer-novnc
+    environment:
+      - SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt"
+      #- NVIDIA_DRIVER_CAPABILITIES="all"
+      #- NVIDIA_VISIBLE_DEVICES="all"
+    volumes:
+      - ./prints:/prints/
+      - ./data:/configs/
+    ports:
+      - 8080:8080
+    restart: unless-stopped
