@@ -9,9 +9,9 @@ services:
       - NVIDIA_VISIBLE_DEVICES=0
       - NVIDIA_DRIVER_CAPABILITIES=all
       - DISPLAY=:1
+      - VGL_DISPLAY=egl # needed to run without X server
       - VNC_RESOLUTION=1920x1080
     volumes:
       - ./prints:/prints/
       - ./data:/configs/
-    network_mode: host # THIS IS NEEDED FOR VIRTUALGL IMPORTANT, haven'tt figured out how to remove this yet
     restart: unless-stopped
