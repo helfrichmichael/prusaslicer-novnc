@@ -76,14 +76,6 @@ ADD menu.xml /etc/xdg/openbox/
 ADD supervisord.conf /etc/
 
 
-
-# Needs to be ran with HOST networking so this are no longer needed.
-# # HTTP Port
-# EXPOSE 8080
-
-# # VNC Port
-# EXPOSE 5900
-
 VOLUME /configs/
 VOLUME /prints/
 

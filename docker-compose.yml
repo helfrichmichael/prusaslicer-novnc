@@ -13,5 +13,5 @@ services:
     volumes:
       - ./prints:/prints/
       - ./data:/configs/
-    network_mode: host
+    network_mode: host # THIS IS NEEDED FOR VIRTUALGL IMPORTANT
     restart: unless-stopped
