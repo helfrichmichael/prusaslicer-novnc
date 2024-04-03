@@ -35,8 +35,8 @@ RUN wget -qO /tmp/virtualgl_${VIRTUALGL_VERSION}_amd64.deb https://sourceforge.n
     && dpkg -i /tmp/virtualgl_${VIRTUALGL_VERSION}_amd64.deb \
     && dpkg -i /tmp/turbovnc_${TURBOVNC_VERSION}_amd64.deb \
     && rm -rf /tmp/*.deb
-# Install prusaslicer
 
+# Install prusaslicer
 WORKDIR /slic3r
 ADD get_latest_prusaslicer_release.sh /slic3r
 RUN chmod +x /slic3r/get_latest_prusaslicer_release.sh \
