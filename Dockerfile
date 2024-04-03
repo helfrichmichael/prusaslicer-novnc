@@ -1,36 +1,41 @@
-# Get and install Easy noVNC.
-FROM golang:1.14-buster AS easy-novnc-build
-WORKDIR /src
-RUN go mod init build && \
-    go get github.com/geek1011/easy-novnc@v1.1.0 && \
-    go build -o /bin/easy-novnc github.com/geek1011/easy-novnc
+ARG UBUNTU_VERSION=22.04
 
-# Get TigerVNC and Supervisor for isolating the container.
-FROM debian:buster
-RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends openbox tigervnc-standalone-server supervisor gosu && \
-    rm -rf /var/lib/apt/lists && \
+FROM nvidia/opengl:1.2-glvnd-runtime-ubuntu${UBUNTU_VERSION}
+LABEL authors="Joshua J. Damanik"
+
+ARG VIRTUALGL_VERSION=3.1
+ARG TURBOVNC_VERSION=3.1
+ENV DEBIAN_FRONTEND noninteractive
+
+# Install some basic dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    wget \
+    xorg \
+    xauth \
+    gosu supervisor x11-xserver-utils \
+    libegl1-mesa \
+    libgl1-mesa-glx \
+    openbox \
+    locales-all \
+    xterm \
+    novnc \
+    lxde gtk2-engines-murrine gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine arc-theme \
+    freeglut3 libgtk2.0-dev libwxgtk3.0-gtk3-dev libwx-perl libxmu-dev libgl1-mesa-glx libgl1-mesa-dri  \
+    xdg-utils locales locales-all pcmanfm jq curl git bzip2 firefox \
+    && rm -rf /var/lib/apt/lists/*a \
     mkdir -p /usr/share/desktop-directories
 
-# Get all of the remaining dependencies for the OS, VNC, and Prusaslicer.
-RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends lxterminal nano wget openssh-client rsync ca-certificates xdg-utils htop tar xzip gzip bzip2 zip unzip && \
-    rm -rf /var/lib/apt/lists
 
-RUN apt update && apt install -y --no-install-recommends --allow-unauthenticated \
-        lxde gtk2-engines-murrine gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine arc-theme \
-        freeglut3 libgtk2.0-dev libwxgtk3.0-gtk3-dev libwx-perl libxmu-dev libgl1-mesa-glx libgl1-mesa-dri  \
-        xdg-utils locales locales-all pcmanfm jq curl git firefox-esr \
-    && apt autoclean -y \
-    && apt autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+# Install virtualgl and turbovnc
+RUN wget -qO /tmp/virtualgl_${VIRTUALGL_VERSION}_amd64.deb https://sourceforge.net/projects/virtualgl/files/${VIRTUALGL_VERSION}/virtualgl_${VIRTUALGL_VERSION}_amd64.deb/download \
+    && wget -qO /tmp/turbovnc_${TURBOVNC_VERSION}_amd64.deb https://sourceforge.net/projects/turbovnc/files/${TURBOVNC_VERSION}/turbovnc_${TURBOVNC_VERSION}_amd64.deb/download \
+    && dpkg -i /tmp/virtualgl_${VIRTUALGL_VERSION}_amd64.deb \
+    && dpkg -i /tmp/turbovnc_${TURBOVNC_VERSION}_amd64.deb \
+    && rm -rf /tmp/*.deb
+# Install prusaslicer
 
-# Install Prusaslicer
-# Many of the commands below were derived and pulled from previous work by dmagyar on GitHub.
-# Here's their Dockerfile for reference https://github.com/dmagyar/prusaslicer-vnc-docker/blob/main/Dockerfile.amd64
 WORKDIR /slic3r
 ADD get_latest_prusaslicer_release.sh /slic3r
-
 RUN chmod +x /slic3r/get_latest_prusaslicer_release.sh \
   && latestSlic3r=$(/slic3r/get_latest_prusaslicer_release.sh url) \
   && slic3rReleaseName=$(/slic3r/get_latest_prusaslicer_release.sh name) \
@@ -52,12 +57,16 @@ RUN chmod +x /slic3r/get_latest_prusaslicer_release.sh \
   && mkdir -p /configs/.config/ \
   && ln -s /configs/.config/ /home/slic3r/ \
   && mkdir -p /home/slic3r/.config/ \
-  # We can now set the Download directory for Firefox and other browsers. 
-  # We can also add /prints/ to the file explorer bookmarks for easy access.
   && echo "XDG_DOWNLOAD_DIR=\"/prints/\"" >> /home/slic3r/.config/user-dirs.dirs \
   && echo "file:///prints prints" >> /home/slic3r/.gtk-bookmarks 
 
-COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
+
+# Generate key for novnc
+RUN openssl req -x509 -nodes -newkey rsa:2048 -keyout /etc/novnc.pem -out /etc/novnc.pem -days 365 -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=localhost"
+
+ENV PATH ${PATH}:/opt/VirtualGL/bin:/opt/TurboVNC/bin
+
+COPY entrypoint.sh /entrypoint.sh
 COPY menu.xml /etc/xdg/openbox/
 COPY supervisord.conf /etc/
 
@@ -70,5 +79,6 @@ EXPOSE 5900
 VOLUME /configs/
 VOLUME /prints/
 
-# It's time! Let's get to work! We use /configs/ as a bindable volume for Prusaslicers configurations. We use /prints/ to provide a location for STLs and GCODE files.
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["bash", "-c", "chown -R slic3r:slic3r /home/slic3r/ /configs/ /prints/ /dev/stdout && exec gosu slic3r supervisord"]
+# CMD ["/bin/bash"]
