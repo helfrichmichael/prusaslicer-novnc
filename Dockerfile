@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libegl1-mesa \
     libgl1-mesa-glx \
     openbox \
-    locales-all libpam0g libxt6 libxext6 dbus-x11 xauth x11-xkb-utils xkb-data, python3\
+    locales-all libpam0g libxt6 libxext6 dbus-x11 xauth x11-xkb-utils xkb-data python3\
     xterm \
     novnc \
     lxde gtk2-engines-murrine gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine arc-theme \
