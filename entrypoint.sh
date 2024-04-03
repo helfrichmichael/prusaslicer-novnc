@@ -5,6 +5,7 @@ rm -f /tmp/.X11-unix/X*
 DISPLAY=${DISPLAY:-:10}
 DISPLAY_NUMBER=$(echo $DISPLAY | cut -d: -f2)
 export NOVNC_PORT=${NOVNC_PORT:-8080}
+export VNC_PORT=${VNC_PORT:-5900}
 VNC_RESOLUTION=${VNC_RESOLUTION:-1280x800}
 if [ -n "$VNC_PASSWORD" ]; then
   mkdir -p /root/.vnc
@@ -14,7 +15,7 @@ if [ -n "$VNC_PASSWORD" ]; then
 else
   export VNC_SEC="-securitytypes TLSNone,X509None,None"
 fi
-export LOCALFBPORT=$((5900 + DISPLAY_NUMBER))
+export LOCALFBPORT=$((${VNC_PORT} + DISPLAY_NUMBER))
 export VGLRUN=/usr/bin/vglrun
 
 # fix perms and launch supervisor with the above environment variables

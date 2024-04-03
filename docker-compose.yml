@@ -13,5 +13,5 @@ services:
     volumes:
       - ./prints:/prints/
       - ./data:/configs/
-    network_mode: host # THIS IS NEEDED FOR VIRTUALGL IMPORTANT
+    network_mode: host # THIS IS NEEDED FOR VIRTUALGL IMPORTANT, haven'tt figured out how to remove this yet
     restart: unless-stopped
