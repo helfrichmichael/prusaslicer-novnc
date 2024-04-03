@@ -2,7 +2,7 @@
 set -e
 rm -f /tmp/.X*-lock
 rm -f /tmp/.X11-unix/X*
-DISPLAY=${DISPLAY:-:10}
+export DISPLAY=${DISPLAY:-:0}
 DISPLAY_NUMBER=$(echo $DISPLAY | cut -d: -f2)
 export NOVNC_PORT=${NOVNC_PORT:-8080}
 export VNC_PORT=${VNC_PORT:-5900}
