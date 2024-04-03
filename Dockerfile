@@ -64,18 +64,18 @@ RUN chmod +x /slic3r/get_latest_prusaslicer_release.sh \
   && echo "file:///prints prints" >> /home/slic3r/.gtk-bookmarks 
 
 
-# Generate key for novnc
-RUN openssl req -x509 -nodes -newkey rsa:2048 -keyout /etc/novnc.pem -out /etc/novnc.pem -days 365 -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=localhost"
+# Generate key for novnc and cleanup erros
+RUN openssl req -x509 -nodes -newkey rsa:2048 -keyout /etc/novnc.pem -out /etc/novnc.pem -days 365 -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=localhost" \
+    && rm /etc/xdg/autostart/lxpolkit.desktop \
+    && mv /usr/bin/lxpolkit /usr/bin/lxpolkit.ORIG
 
 ENV PATH ${PATH}:/opt/VirtualGL/bin:/opt/TurboVNC/bin
 
-COPY entrypoint.sh /entrypoint.sh
-COPY menu.xml /etc/xdg/openbox/
-COPY supervisord.conf /etc/
+ADD entrypoint.sh /entrypoint.sh
+ADD menu.xml /etc/xdg/openbox/
+ADD supervisord.conf /etc/
 
-# get rid of errors https://github.com/meefik/linuxdeploy/issues/978#issuecomment-541551743
-RUN rm /etc/xdg/autostart/lxpolkit.desktop
-RUN mv /usr/bin/lxpolkit /usr/bin/lxpolkit.ORIG
+
 
 # Needs to be ran with HOST networking so this are no longer needed.
 # # HTTP Port
