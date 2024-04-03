@@ -16,5 +16,6 @@ fi
 # echo "NoVNC server started on port $NOVNC_PORT"
 # EXEC=$@
 # exec "$@"
+export LOCALFBPORT=$((5900 + DISPLAY_NUMBER))
 export VGLRUN=vglrun
 chown -R slic3r:slic3r /home/slic3r/ /configs/ /prints/ /dev/stdout && exec gosu slic3r supervisord # -e TRACE
