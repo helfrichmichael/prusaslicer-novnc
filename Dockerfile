@@ -73,6 +73,9 @@ COPY entrypoint.sh /entrypoint.sh
 COPY menu.xml /etc/xdg/openbox/
 COPY supervisord.conf /etc/
 
+# get rid of errors https://github.com/meefik/linuxdeploy/issues/978#issuecomment-541551743
+RUN rm /etc/xdg/autostart/lxpolkit.desktop
+RUN mv /usr/bin/lxpolkit /usr/bin/lxpolkit.ORIG
 
 # Needs to be ran with HOST networking so this are no longer needed.
 # # HTTP Port
