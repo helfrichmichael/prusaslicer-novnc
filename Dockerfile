@@ -4,10 +4,11 @@ ARG UBUNTU_VERSION=22.04
 FROM nvidia/opengl:1.2-glvnd-runtime-ubuntu${UBUNTU_VERSION}
 LABEL authors="Joshua J. Damanik, vajonam"
 
-ARG VIRTUALGL_VERSION=3.1
-ARG TURBOVNC_VERSION=3.1
+ARG VIRTUALGL_VERSION=3.1.1-20240228
+ARG TURBOVNC_VERSION=3.1.1-20240127
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN 
 # Install some basic dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
@@ -17,7 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libegl1-mesa \
     libgl1-mesa-glx \
     openbox \
-    locales-all \
+    locales-all libpam0g libxt6 libxext6 dbus-x11 xauth x11-xkb-utils xkb-data, python3\
     xterm \
     novnc \
     lxde gtk2-engines-murrine gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine arc-theme \
@@ -30,8 +31,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 
 # Install virtualgl and turbovnc
-RUN wget -qO /tmp/virtualgl_${VIRTUALGL_VERSION}_amd64.deb https://sourceforge.net/projects/virtualgl/files/${VIRTUALGL_VERSION}/virtualgl_${VIRTUALGL_VERSION}_amd64.deb/download \
-    && wget -qO /tmp/turbovnc_${TURBOVNC_VERSION}_amd64.deb https://sourceforge.net/projects/turbovnc/files/${TURBOVNC_VERSION}/turbovnc_${TURBOVNC_VERSION}_amd64.deb/download \
+RUN wget -qO /tmp/virtualgl_${VIRTUALGL_VERSION}_amd64.deb https://packagecloud.io/dcommander/virtualgl/packages/any/any/virtualgl_${VIRTUALGL_VERSION}_amd64.deb/download.deb?distro_version_id=35\
+    && wget -qO /tmp/turbovnc_${TURBOVNC_VERSION}_amd64.deb https://packagecloud.io/dcommander/turbovnc/packages/any/any/turbovnc_${TURBOVNC_VERSION}_amd64.deb/download.deb?distro_version_id=35 \
     && dpkg -i /tmp/virtualgl_${VIRTUALGL_VERSION}_amd64.deb \
     && dpkg -i /tmp/turbovnc_${TURBOVNC_VERSION}_amd64.deb \
     && rm -rf /tmp/*.deb

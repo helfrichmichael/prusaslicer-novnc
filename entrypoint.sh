@@ -16,7 +16,7 @@ else
   export VNC_SEC="-securitytypes TLSNone,X509None,None"
 fi
 export LOCALFBPORT=$((${VNC_PORT} + DISPLAY_NUMBER))
-export VGLRUN=/usr/bin/vglrun
+export VGLRUN="${VGLRUN:-/usr/bin/vglrun}"
 
 # fix perms and launch supervisor with the above environment variables
-chown -R slic3r:slic3r /home/slic3r/ /configs/ /prints/ /dev/stdout && exec gosu slic3r supervisord # -e TRACE
+chown -R slic3r:slic3r /home/slic3r/ /configs/ /prints/ /dev/stdout && exec gosu slic3r supervisord -e TRACE
