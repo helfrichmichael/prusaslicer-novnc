@@ -72,14 +72,15 @@ COPY entrypoint.sh /entrypoint.sh
 COPY menu.xml /etc/xdg/openbox/
 COPY supervisord.conf /etc/
 
-# HTTP Port
-EXPOSE 8080
 
-# VNC Port
-EXPOSE 5900
+# Needs to be ran with HOST networking so this are no longer needed.
+# # HTTP Port
+# EXPOSE 8080
+
+# # VNC Port
+# EXPOSE 5900
 
 VOLUME /configs/
 VOLUME /prints/
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["bash", "-c", "chown -R slic3r:slic3r /home/slic3r/ /configs/ /prints/ /dev/stdout && exec gosu slic3r supervisord"]
