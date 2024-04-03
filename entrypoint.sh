@@ -1,4 +1,4 @@
-#!/bin/bash -x 
+#!/bin/bash
 set -e
 rm -f /tmp/.X*-lock
 rm -f /tmp/.X11-unix/X*
