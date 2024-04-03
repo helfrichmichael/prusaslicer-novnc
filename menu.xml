@@ -3,7 +3,7 @@
     <menu id="root-menu" label="Openbox 3">
         <item label="Prusaslicer">
             <action name="Execute">
-                <execute>/slic3r/slic3r-dist/prusa-slicer --datadir /configs/.config/PrusaSlicer/</execute>
+                <execute>/usr/bin/vglrun /slic3r/slic3r-dist/prusa-slicer --datadir /configs/.config/PrusaSlicer/</execute>
             </action>
         </item>
         <item label="Terminal">
