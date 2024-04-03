@@ -9,7 +9,7 @@ services:
       - NVIDIA_VISIBLE_DEVICES=0
       - NVIDIA_DRIVER_CAPABILITIES=all
       - DISPLAY=:1
-      - VNC_RESOLUTION=1900x1080
+      - VNC_RESOLUTION=1920x1080
     volumes:
       - ./prints:/prints/
       - ./data:/configs/
