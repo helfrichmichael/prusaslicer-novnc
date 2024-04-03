@@ -21,11 +21,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     novnc \
     lxde gtk2-engines-murrine gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine arc-theme \
     freeglut3 libgtk2.0-dev libwxgtk3.0-gtk3-dev libwx-perl libxmu-dev libgl1-mesa-glx libgl1-mesa-dri  \
-    xdg-utils locales locales-all pcmanfm jq curl git bzip2 firefox \
+    xdg-utils locales locales-all pcmanfm jq curl git bzip2 \
     && apt autoclean -y \
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/* \
-    mkdir -p /usr/share/desktop-directories
+    && mkdir -p /usr/share/desktop-directories
 
 
 # Install virtualgl and turbovnc
