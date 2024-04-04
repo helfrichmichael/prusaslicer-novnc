@@ -6,7 +6,7 @@ export DISPLAY=${DISPLAY:-:0}
 DISPLAY_NUMBER=$(echo $DISPLAY | cut -d: -f2)
 export NOVNC_PORT=${NOVNC_PORT:-8080}
 export VNC_PORT=${VNC_PORT:-5900}
-VNC_RESOLUTION=${VNC_RESOLUTION:-1280x800}
+export VNC_RESOLUTION=${VNC_RESOLUTION:-1280x800}
 if [ -n "$VNC_PASSWORD" ]; then
   mkdir -p /root/.vnc
   echo "$VNC_PASSWORD" | vncpasswd -f > /root/.vnc/passwd
