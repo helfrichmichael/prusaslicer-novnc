@@ -64,6 +64,9 @@ Once enabled and started you can verify the GPU is being used by running `nvidia
 *some information above was edited for privacy
 ```
 
+The `GL Version` on the System Information screen inside the slicer should also show, the GPU model and driver version
+
+![image](https://github.com/vajonam/prusaslicer-novnc/assets/152501/250c93f5-e550-42f9-8cce-b942c93ef61e)
 
 
 
