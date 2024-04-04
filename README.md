@@ -44,15 +44,9 @@ Once enabled and started you can verify the GPU is being used by running `nvidia
 +---------------------------------------------------------------------------------------+
 | NVIDIA-SMI 535.161.07             Driver Version: 535.161.07   CUDA Version: 12.2     |
 |-----------------------------------------+----------------------+----------------------+
-| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
-|                                         |                      |               MIG M. |
-|=========================================+======================+======================|
-|   0  NVIDIA GeForce GTX 1050 Ti     Off | 00000000:0F:00.0  On |                  N/A |
-| 36%   58C    P0              N/A /  72W |    588MiB /  4096MiB |      2%      Default |
-|                                         |                      |                  N/A |
-+-----------------------------------------+----------------------+----------------------+
-                                                                                         
+
+.. removed for brevity .. 
+
 +---------------------------------------------------------------------------------------+
 | Processes:                                                                            |
 |  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
