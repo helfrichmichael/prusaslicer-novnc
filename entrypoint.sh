@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 set -e
 rm -f /tmp/.X*-lock
 rm -f /tmp/.X11-unix/X*
@@ -16,7 +16,12 @@ else
   export VNC_SEC="-securitytypes TLSNone,X509None,None"
 fi
 export LOCALFBPORT=$((${VNC_PORT} + DISPLAY_NUMBER))
-export VGLRUN="${VGLRUN:-/usr/bin/vglrun}"
+if [ -n "$ENABLEHWGPU" ] && [ "$ENABLEHWGPU" = "true" ]; then
+  export VGLRUN="/usr/bin/vglrun"
+else 
+  export VGLRUN=
+fi
+
 export SUPD_LOGLEVEL="${SUPD_LOGLEVEL:-TRACE}"
 export VGL_DISPLAY="${VGL_DISPLAY:-egl}"
 
