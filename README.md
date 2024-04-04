@@ -38,6 +38,32 @@ In unraid you can set these values during set up. For containers outside of unra
 
 In addition to the information above, to enable **Hardware 3D acceleration** (which helps with visualizing complex models and  sliced layers), you must set an environment variable. You can do this by either adding `-e ENABLEHWGPU=true` to the `docker run` command or including `- ENABLEHWGPU=true` in your Docker Compose configuration.
 
+Once enabled and started you can verify the GPU is being used by running `nvidia-smi -l` on the HOST machine and you should see `/slic3r/slic3r-dist/bin/prusa-slicer` as process using the GPU. 
+
+```
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.161.07             Driver Version: 535.161.07   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+
+.. removed for brevity .. 
+
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|    0   N/A  N/A   4129827      G   /slic3r/slic3r-dist/bin/prusa-slicer        262MiB |
++---------------------------------------------------------------------------------------+
+
+*some information above was edited for privacy
+```
+
+The `GL Version` on the System Information screen inside the slicer should also show, the GPU model and driver version
+
+<img src="https://github.com/vajonam/prusaslicer-novnc/assets/152501/250c93f5-e550-42f9-8cce-b942c93ef61e" width="300" />
+
+
+
 ### Other Environment Variables
 
 Below are the default values for various environment variables:
