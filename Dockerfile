@@ -2,7 +2,7 @@
 ARG UBUNTU_VERSION=22.04
 
 FROM nvidia/opengl:1.2-glvnd-runtime-ubuntu${UBUNTU_VERSION}
-LABEL authors="Joshua J. Damanik - vajonam, Michael Helfrich - helfrichmichael"
+LABEL authors="Joshua J. Damanik, vajonam, Michael Helfrich - helfrichmichael"
 
 ARG VIRTUALGL_VERSION=3.1.1-20240228
 ARG TURBOVNC_VERSION=3.1.1-20240127
