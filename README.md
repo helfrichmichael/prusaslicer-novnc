@@ -38,6 +38,35 @@ In unraid you can set these values during set up. For containers outside of unra
 
 In addition to the information above, to enable **Hardware 3D acceleration** (which helps with visualizing complex models and  sliced layers), you must set an environment variable. You can do this by either adding `-e ENABLEHWGPU=true` to the `docker run` command or including `- ENABLEHWGPU=true` in your Docker Compose configuration.
 
+Once enabled and started you can verify the GPU is being used by running `nvidia-smi -l` on the HOST machine and you should see `/slic3r/slic3r-dist/bin/prusa-slicer` as process using the GPU. 
+
+```
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.161.07             Driver Version: 535.161.07   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA GeForce GTX 1050 Ti     Off | 00000000:0F:00.0  On |                  N/A |
+| 36%   58C    P0              N/A /  72W |    588MiB /  4096MiB |      2%      Default |
+|                                         |                      |                  N/A |
++-----------------------------------------+----------------------+----------------------+
+                                                                                         
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|    0   N/A  N/A   4129827      G   /slic3r/slic3r-dist/bin/prusa-slicer        262MiB |
++---------------------------------------------------------------------------------------+
+
+*some information above was edited for privacy
+```
+
+
+
+
 ### Other Environment Variables
 
 Below are the default values for various environment variables:
