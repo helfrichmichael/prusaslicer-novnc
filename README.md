@@ -45,7 +45,7 @@ Below are the default values for various environment variables:
 - `DISPLAY=:0`: Sets the DISPLAY variable (usually left as 0).
 - `VGL_DISPLAY=egl`: Required for HW 3D acceleration with EGL support on the HOST graphics driver.
 - `SUPD_LOGLEVEL=INFO`: Specifies the log level for supervisord. Set to `TRACE` to see output for various commands helps if you are debugging something. See superviosrd manual for possible levels.
-- `ENABLEHWGPU=true`: Enables HW 3D acceleration.
+- `ENABLEHWGPU=: Enables HW 3D acceleration. Default is not enabled.
 - `VNC_RESOLUTION=1280x800`: Defines the resolution of the VNC server.
 - `VNC_PASSWORD=`: Defaults to no VNC password, but you can add one here.
 - `NOVNC_PORT=8080`: Sets the port for the noVNC HTML5/web interface.
