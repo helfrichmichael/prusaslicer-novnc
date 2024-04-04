@@ -36,21 +36,20 @@ Like other Docker containers, you can pass your Nvidia GPU into the container us
 
 In unraid you can set these values during set up. For containers outside of unraid, you can set this by adding the following params or similar  `-e NVIDIA_DRIVER_CAPABILITIES="all" NVIDIA_VISIBLE_DEVICES="all"`. If using Docker Compose, uncomment the enviroment variables in the relevant docker-compose.yaml file.
 
-In addtion to the above, to enable HW 3D acceleration (helps with complex models and visualizing the sliced layers), you must pass ane environment variable by adding a `-e ENABLEHWGPU=true` to the docker run command or adding `- ENABLEHWGPU=true` to your docker compose.
+In addition to the information above, to enable **HW 3D acceleration** (which helps with complex models and visualizing sliced layers), you must set an environment variable. You can do this by either adding `-e ENABLEHWGPU=true` to the `docker run` command or including `- ENABLEHWGPU=true` in your Docker Compose configuration.
 
 ### Other Environment Variables
 
-Default values shown below. 
+Below are the default values for various environment variables:
 
-- `DISPLAY=:0` sets the DISPLAY variable, this can be left as 0
-- `VGL_DISPLAY=egl` needed for HW 3D accelration with EGL support on the HOST graphics driver. 
-- `SUPD_LOGLEVEL=INFO` log level for supervisord 
-- `ENABLEHWGPU=true` enable HW 3D Accelaration 
-- `VNC_RESOLUTION=1280x800` resolution of the VNC server
-- `VNC_PASSWORD=(None)` defaults to no VNC password, you can add one here.
-- `NOVNC_PORT=8080` port for the novonc HTML5/web interface.
-- `VNC_PORT=5900` port fo the vnc server, allows direct connections using a VNC client. Note the `DISPLAY` number above is added to the port number, so if your display is :1 then VNC port accepting connections will be `5901`
-
+- `DISPLAY=:0`: Sets the DISPLAY variable (usually left as 0).
+- `VGL_DISPLAY=egl`: Required for HW 3D acceleration with EGL support on the HOST graphics driver.
+- `SUPD_LOGLEVEL=INFO`: Specifies the log level for supervisord.
+- `ENABLEHWGPU=true`: Enables HW 3D acceleration.
+- `VNC_RESOLUTION=1280x800`: Defines the resolution of the VNC server.
+- `VNC_PASSWORD=`: Defaults to no VNC password, but you can add one here.
+- `NOVNC_PORT=8080`: Sets the port for the noVNC HTML5/web interface.
+- `VNC_PORT=5900`: Defines the port for the VNC server, allowing direct connections using a VNC client. Note that the `DISPLAY` number is added to the port number (e.g., if your display is :1, the VNC port accepting connections will be `5901`). 
 
 ## Links
 
