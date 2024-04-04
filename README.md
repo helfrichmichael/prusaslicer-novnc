@@ -36,7 +36,7 @@ Like other Docker containers, you can pass your Nvidia GPU into the container us
 
 In unraid you can set these values during set up. For containers outside of unraid, you can set this by adding the following params or similar  `-e NVIDIA_DRIVER_CAPABILITIES="all" NVIDIA_VISIBLE_DEVICES="all"`. If using Docker Compose, uncomment the enviroment variables in the relevant docker-compose.yaml file.
 
-In addition to the information above, to enable **HW 3D acceleration** (which helps with complex models and visualizing sliced layers), you must set an environment variable. You can do this by either adding `-e ENABLEHWGPU=true` to the `docker run` command or including `- ENABLEHWGPU=true` in your Docker Compose configuration.
+In addition to the information above, to enable **Hardware 3D acceleration** (which helps with visualizing complex models and  sliced layers), you must set an environment variable. You can do this by either adding `-e ENABLEHWGPU=true` to the `docker run` command or including `- ENABLEHWGPU=true` in your Docker Compose configuration.
 
 ### Other Environment Variables
 
@@ -45,7 +45,7 @@ Below are the default values for various environment variables:
 - `DISPLAY=:0`: Sets the DISPLAY variable (usually left as 0).
 - `VGL_DISPLAY=egl`: Required for HW 3D acceleration with EGL support on the HOST graphics driver.
 - `SUPD_LOGLEVEL=INFO`: Specifies the log level for supervisord. Set to `TRACE` to see output for various commands helps if you are debugging something. See superviosrd manual for possible levels.
-- `ENABLEHWGPU=: Enables HW 3D acceleration. Default is not enabled.
+- `ENABLEHWGPU=:` Enables HW 3D acceleration. Default is `false` to maintaing backward compatability.
 - `VNC_RESOLUTION=1280x800`: Defines the resolution of the VNC server.
 - `VNC_PASSWORD=`: Defaults to no VNC password, but you can add one here.
 - `NOVNC_PORT=8080`: Sets the port for the noVNC HTML5/web interface.
