@@ -27,7 +27,7 @@ To build a new image, clone this repository and run `docker compose up -f docker
 
 ### Using a VNC Viewer
 
-To use a VNC viewer with the container, the default port for X TigerVNC is 5900. You can add this port by adding `-p 5900:5900` to your command to start the container to open this port for access.
+To use a VNC viewer with the container, the default port for TurobVNC is 5900. You can add this port by adding `-p 5900:5900` to your command to start the container to open this port for access. See note below about ports related to `VNC_PORT` environment variable. 
 
 
 ### GPU Acceleration/Passthrough
