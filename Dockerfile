@@ -76,6 +76,8 @@ ADD entrypoint.sh /entrypoint.sh
 ADD menu.xml /etc/xdg/openbox/
 ADD supervisord.conf /etc/
 
+# Add a default file to resize, etc for noVNC.
+ADD vncresize.html /usr/share/novnc/index.html
 
 VOLUME /configs/
 VOLUME /prints/
