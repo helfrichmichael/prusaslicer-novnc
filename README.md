@@ -56,6 +56,8 @@ Below are the default values for various environment variables:
 
 [Prusaslicer](https://www.prusa3d.com/prusaslicer/)
 
+[TruboVNC] (https://www.turbovnc.org/)
+
 [VirtualGL](https://virtualgl.org/)
 
 [Supervisor](http://supervisord.org/)
