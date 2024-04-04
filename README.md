@@ -16,7 +16,7 @@ If you're using unraid, open your Docker page and under `Template repositories`,
 
 #### Docker
 To run this image, you can run the following command: `docker run --detach --volume=prusaslicer-novnc-data:/configs/ --volume=prusaslicer-novnc-prints:/prints/ -p 8080:8080 -e SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt" 
---name=prusaslicer-novnc prusaslicer-novnc`
+--name=prusaslicer-novnc mikeah/prusaslicer-novnc`
 
 This will bind `/configs/` in the container to a local volume on my machine named `prusaslicer-novnc-data`. Additionally it will bind `/prints/` in the container to `superslicer-novnc-prints` locally on my machine, it will bind port `8080` to `8080`, and finally, it will provide an environment variable to keep Prusaslicer happy by providing an `SSL_CERT_FILE`.
 
