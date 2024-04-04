@@ -56,6 +56,8 @@ Below are the default values for various environment variables:
 
 [Prusaslicer](https://www.prusa3d.com/prusaslicer/)
 
+[VirtualGL](https://virtualgl.org/)
+
 [Supervisor](http://supervisord.org/)
 
 [GitHub Source](https://github.com/helfrichmichael/prusaslicer-novnc)
