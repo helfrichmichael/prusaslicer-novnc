@@ -43,12 +43,14 @@ In addition to the information above, to enable **Hardware 3D acceleration** (wh
 Below are the default values for various environment variables:
 
 - `DISPLAY=:0`: Sets the DISPLAY variable (usually left as 0).
-- `VGL_DISPLAY=egl`: Required for HW 3D acceleration with EGL support on the HOST graphics driver.
 - `SUPD_LOGLEVEL=INFO`: Specifies the log level for supervisord. Set to `TRACE` to see output for various commands helps if you are debugging something. See superviosrd manual for possible levels.
+
 - `ENABLEHWGPU=`: Enables HW 3D acceleration. Default is `false` to maintain backward compatability.
+- `VGL_DISPLAY=egl`: Advanced setting to target specific cards if you have multiple GPUs
+- `NOVNC_PORT=8080`: Sets the port for the noVNC HTML5/web interface.
+
 - `VNC_RESOLUTION=1280x800`: Defines the resolution of the VNC server.
 - `VNC_PASSWORD=`: Defaults to no VNC password, but you can add one here.
-- `NOVNC_PORT=8080`: Sets the port for the noVNC HTML5/web interface.
 - `VNC_PORT=5900`: Defines the port for the VNC server, allowing direct connections using a VNC client. Note that the `DISPLAY` number is added to the port number (e.g., if your display is :1, the VNC port accepting connections will be `5901`). 
 
 ## Links
