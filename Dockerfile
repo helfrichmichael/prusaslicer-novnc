@@ -70,8 +70,9 @@ ENV PATH ${PATH}:/opt/VirtualGL/bin:/opt/TurboVNC/bin
 ADD entrypoint.sh /entrypoint.sh
 ADD supervisord.conf /etc/
 
-# Add a default file to resize, etc for noVNC.
+# Add a default file to resize and redirect, rename the title, and adjust icons for noVNC.
 ADD vncresize.html /usr/share/novnc/index.html
+RUN sed -i 's/<title>.<\/title>/<title>Prusaslicer noVNC<\/title>/g' /usr/share/novnc/novnc.html
 ADD icons/prusaslicer-16x16.png /usr/share/novnc/app/images/icons/novnc-16x16.png
 ADD icons/prusaslicer-24x24.png /usr/share/novnc/app/images/icons/novnc-24x24.png
 ADD icons/prusaslicer-32x32.png /usr/share/novnc/app/images/icons/novnc-32x32.png
