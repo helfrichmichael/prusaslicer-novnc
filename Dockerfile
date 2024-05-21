@@ -8,7 +8,6 @@ ARG VIRTUALGL_VERSION=3.1.1-20240228
 ARG TURBOVNC_VERSION=3.1.1-20240127
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN 
 # Install some basic dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     wget xorg xauth gosu supervisor x11-xserver-utils libegl1-mesa libgl1-mesa-glx \
@@ -26,14 +25,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
-# Install virtualgl and turbovnc
+# Install VirtualGL and TurboVNC
 RUN wget -qO /tmp/virtualgl_${VIRTUALGL_VERSION}_amd64.deb https://packagecloud.io/dcommander/virtualgl/packages/any/any/virtualgl_${VIRTUALGL_VERSION}_amd64.deb/download.deb?distro_version_id=35\
     && wget -qO /tmp/turbovnc_${TURBOVNC_VERSION}_amd64.deb https://packagecloud.io/dcommander/turbovnc/packages/any/any/turbovnc_${TURBOVNC_VERSION}_amd64.deb/download.deb?distro_version_id=35 \
     && dpkg -i /tmp/virtualgl_${VIRTUALGL_VERSION}_amd64.deb \
     && dpkg -i /tmp/turbovnc_${TURBOVNC_VERSION}_amd64.deb \
     && rm -rf /tmp/*.deb
 
-# Install prusaslicer
+# Install Prusaslicer.
 WORKDIR /slic3r
 ADD get_latest_prusaslicer_release.sh /slic3r
 RUN chmod +x /slic3r/get_latest_prusaslicer_release.sh \
@@ -60,7 +59,7 @@ RUN chmod +x /slic3r/get_latest_prusaslicer_release.sh \
   && echo "XDG_DOWNLOAD_DIR=\"/prints/\"" >> /home/slic3r/.config/user-dirs.dirs \
   && echo "file:///prints prints" >> /home/slic3r/.gtk-bookmarks
 
-# Generate key for novnc and cleanup erros
+# Generate key for noVNC and cleanup errors.
 RUN openssl req -x509 -nodes -newkey rsa:2048 -keyout /etc/novnc.pem -out /etc/novnc.pem -days 365 -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=localhost" \
     && rm /etc/xdg/autostart/lxpolkit.desktop \
     && mv /usr/bin/lxpolkit /usr/bin/lxpolkit.ORIG
@@ -86,7 +85,7 @@ ADD icons/prusaslicer-144x144.png /usr/share/novnc/app/images/icons/novnc-144x14
 ADD icons/prusaslicer-152x152.png /usr/share/novnc/app/images/icons/novnc-152x152.png
 ADD icons/prusaslicer-192x192.png /usr/share/novnc/app/images/icons/novnc-192x192.png
 
-# Set firefox to run with hardware accel as if enabled.
+# Set Firefox to run with hardware acceleration as if enabled.
 RUN sed -i 's|exec $MOZ_LIBDIR/$MOZ_APP_NAME "$@"|if [ -n "$ENABLEHWGPU" ] \&\& [ "$ENABLEHWGPU" = "true" ]; then\n  exec /usr/bin/vglrun $MOZ_LIBDIR/$MOZ_APP_NAME "$@"\nelse\n  exec $MOZ_LIBDIR/$MOZ_APP_NAME "$@"\nfi|g' /usr/bin/firefox-esr
 
 VOLUME /configs/
