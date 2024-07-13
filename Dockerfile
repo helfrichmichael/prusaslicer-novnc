@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     locales-all libpam0g libxt6 libxext6 dbus-x11 xauth x11-xkb-utils xkb-data python3 xterm novnc \
     lxde gtk2-engines-murrine gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine arc-theme \
     freeglut3 libgtk2.0-dev libwxgtk3.0-gtk3-dev libwx-perl libxmu-dev libgl1-mesa-glx libgl1-mesa-dri  \
-    xdg-utils locales locales-all pcmanfm jq curl git bzip2 gpg-agent software-properties-common \
+    xdg-utils locales locales-all pcmanfm jq curl git bzip2 gpg-agent software-properties-common libwebkit2gtk-4.0-dev \
     && mkdir -p /usr/share/desktop-directories \
     # Install Firefox without Snap.
     && add-apt-repository ppa:mozillateam/ppa \
@@ -40,8 +40,8 @@ RUN chmod +x /slic3r/get_latest_prusaslicer_release.sh \
   && slic3rReleaseName=$(/slic3r/get_latest_prusaslicer_release.sh name) \
   && curl -sSL ${latestSlic3r} > ${slic3rReleaseName} \
   && rm -f /slic3r/releaseInfo.json \
-  && mkdir -p /slic3r/slic3r-dist \
-  && tar -xjf ${slic3rReleaseName} -C /slic3r/slic3r-dist --strip-components 1 \
+  && chmod +x /slic3r/${slic3rReleaseName} \
+  && /slic3r/${slic3rReleaseName} --appimage-extract \
   && rm -f /slic3r/${slic3rReleaseName} \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get autoclean \
